@@ -5,6 +5,7 @@ import datetime
 import tkinter as tk
 from tkinter import ttk
 import os
+from tkinter import messagebox
 
 import matplotlib
 
@@ -24,8 +25,131 @@ root.title("Heart Attack Prediction System")
 root.geometry("1280x768")
 root.resizable(False,False)
 root.config(bg=backgounds)
-####################################################################################################################################
 
+###Analysis
+def analysis():
+    name=Name.get()
+    D1=Date.get()
+    today=datetime.date.today()
+    A=today.year-Dob.get()
+
+    try:
+        B=selection()
+    except:
+        messagebox.showerror("missing","plase select gander!!")
+        return
+    try:
+        F=selection2()
+    except:
+        messagebox.showerror("missing","plase select fbs!!")
+        return
+    try:
+        I=selection3()
+    except:
+        messagebox.showerror("missing","plase select exang!!")
+        return
+    try:
+        C=int(selection4())
+    except:
+        messagebox.showerror("missing","plase select cp!!")
+        return
+    
+    try:
+        G=int(restecg_combobox.get())
+    except:
+        messagebox.showerror("missing","plase select restcg!!")
+        return
+    
+    try:
+        K=int(selection5())
+    except:
+        messagebox.showerror("missing","plase select slope!!")
+        return
+
+    try:
+        L=int(ca_combobox.get())
+    except:
+        messagebox.showerror("missing","plase select ca!!")
+        return
+    try:
+        M=int(thal_combobox.get())
+    except:
+        messagebox.showerror("missing","plase select thal!!")
+        return
+    try:
+        D=int(trestbps.get())
+        E=int(chol.get())
+        H=int(thalach.get())
+        J=int(oldpeak.get())
+    except:
+        messagebox.showerror("missing data","Few missing data entry!!")
+        return
+
+    print("A is age", A)
+    print("B is gender", B)
+    print("C is cp", C)
+    print("D is trestbps", D)
+    print("E is chol", E)
+    print("F is fbs", F)
+    print("G is restcg", G)
+    print("H is thalach", H)
+    print("I is Exang", I)
+    print("J is oldpeak", J)
+    print("K is slop", K)
+    print("L is ca", L)
+    print("M is thal", M)
+
+####################################################################################################################################
+def Info():
+    Icon_window = Toplevel(root)
+    Icon_window.geometry("700x600+300+50")
+    Icon_window.title("Info")
+
+    #icon_image
+    icon_image=PhotoImage(file="Images/info.png")
+    Icon_window.iconphoto(False,icon_image)
+
+    #Heading
+    Label(Icon_window,text="Information Related to dataset",font="robot 19 bold").pack(padx=20,pady=20)
+
+    #info
+    Label(Icon_window,text="age - age in years",font="arial 11").place(x=20,y=100)
+    Label(Icon_window,text="sex - sex (1 = male; 0 = female)",font="arial 11").place(x=20,y=130)
+    Label(Icon_window,text="cp - chest pain type (0 = typical angina; 1 = atypical angina; 2 = non-anginal pain; 3 = asymptomatic)",font="arial 11").place(x=20,y=160)
+    Label(Icon_window,text="trestbps - resting blood pressure (in mm Hg on admission to the hospital)",font="arial 11").place(x=20,y=190)
+    Label(Icon_window,text="chol - serum cholestoral in mg/dl",font="arial 11").place(x=20,y=220)
+    Label(Icon_window,text="fbs - fasting blood sugar > 120 mg/dl (1 = true; 0 = false)",font="arial 11").place(x=20,y=250)
+    Label(Icon_window,text="restecg - resting electrocardiographic results (0 = normal; 1 = having ST-T; 2 = hypertrophy)",font="arial 11").place(x=20,y=280)
+    Label(Icon_window,text="thalach - maximum heart rate achieved",font="arial 11").place(x=20,y=310)
+    Label(Icon_window,text="exang - exercise induced angina (1 = yes; 0 = no)",font="arial 11").place(x=20,y=340)
+    Label(Icon_window,text="oldpeak - ST depression induced by exercise relative to rest",font="arial 11").place(x=20,y=370)
+    Label(Icon_window,text="slope - the slope of the peak exercise ST segment (0 = upsloping; 1 = flat; 2 = downsloping)",font="arial 11").place(x=20,y=400)
+    Label(Icon_window,text="ca - number of major vessels (0-3) colored by flourosopy",font="arial 11").place(x=20,y=430)
+    Label(Icon_window,text="thal - 0 = normal; 1 = fixed defect; 2 = reversable defect",font="arial 11").place(x=20,y=460)
+
+
+
+    Icon_window.mainloop()
+
+
+def logout():
+    root.destroy()
+
+
+###Clear
+def clear():
+    Name.get('')
+    Dob.get('')
+    trestbps.get('')
+    chol.get('')
+    thalach.set('')
+    oldpeak.set('')
+
+
+
+
+
+####################################################################################################################################
 #icon 1
 image_icon=PhotoImage(file="Images/icon.png")
 root.iconphoto(False,image_icon)
@@ -228,11 +352,11 @@ Label(image=graph_image).place(x=830,y=500)
 
 ###Button###
 analysis_button=PhotoImage(file="Images/Analysis.png")
-Button(root,image=analysis_button,bg=backgounds,bd=0,cursor="hand2").place(x=1060,y=240)
+Button(root,image=analysis_button,bg=backgounds,bd=0,cursor="hand2",command=analysis).place(x=1060,y=240)
 
 ###Info Button###
 info_button=PhotoImage(file="Images/info.png")
-Button(root,image=info_button,bd=0,bg=backgounds,cursor="hand2").place(x=10,y=240)
+Button(root,image=info_button,bd=0,bg=backgounds,cursor="hand2",command=Info).place(x=10,y=240)
 
 ###Save Button###
 save_button=PhotoImage(file="Images/save.png")
@@ -266,7 +390,7 @@ mode.place(x=350,y=495)
 
 ###LogOut Button###
 logout_icon=PhotoImage(file="Images/logout.png")
-logout_button=Button(root,image=logout_icon,bg="#df2d4b",cursor="hand2",bd=0)
+logout_button=Button(root,image=logout_icon,bg="#df2d4b",cursor="hand2",bd=0, command=logout)
 logout_button.place(x=20,y=10)
 
 
