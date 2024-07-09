@@ -16,6 +16,8 @@ from matplotlib.figure import Figure
 import numpy as np
 import matplotlib.pyplot as plt
 
+from backend import *
+
 backgounds="#f0ddd5"
 framebg="#62a7ff"
 framefg="#fefbfb"
@@ -98,6 +100,61 @@ def analysis():
     print("K is slop", K)
     print("L is ca", L)
     print("M is thal", M)
+
+
+###First Graph
+    f=Figure(figsize=(5,5),dpi=100)
+    a=f.add_subplot(111)
+    a.plot(["Sex","fbs","exang"],[B,F,I])
+    canvas = FigureCanvasTkAgg(f)
+    canvas.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
+    canvas._tkcanvas.place(width=208,height=208,x=600,y=270)
+
+###Second Graph
+    f2=Figure(figsize=(5,5),dpi=100)
+    a2=f2.add_subplot(111)
+    a2.plot(["age","trestbps","chol","thalach"],[A,D,E,H])
+    canvas2 = FigureCanvasTkAgg(f2)
+    canvas2.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
+    canvas2._tkcanvas.place(width=208,height=208,x=830,y=270)
+
+###third Graph
+    f3=Figure(figsize=(5,5),dpi=100)
+    a3=f3.add_subplot(111)
+    a3.plot(["oldpeak","resticg","cp"],[J,G,C])
+    canvas3 = FigureCanvasTkAgg(f3)
+    canvas3.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
+    canvas3._tkcanvas.place(width=208,height=208,x=600,y=500)
+
+###fourth Graph
+    f4=Figure(figsize=(5,5),dpi=100)
+    a4=f4.add_subplot(111)
+    a4.plot(["slope","ca","thal"],[K,L,M])
+    canvas4 = FigureCanvasTkAgg(f4)
+    canvas4.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
+    canvas4._tkcanvas.place(width=208,height=208,x=830,y=500)
+
+
+###input data
+    input_data=(A,B,C,D,E,F,G,H,I,J,K,L,M)
+
+    input_data_as_numpy_array=np.asanyarray(input_data)
+
+    input_data_reshape = input_data_as_numpy_array.reshape(1,-1)
+
+    prediction = model.predict(input_data_reshape)
+    print(prediction[0])
+
+    if (prediction[0]==0):
+        print('The Person does not have a Heart disease')
+        report.config(text=f"Report: {0}",fg="#8dc63f")
+        report1.config(text=f"{name},\n you do not have a heart disease")
+
+    else:
+        print('The Person has Heart disease')
+        report.config(text=f"Report: {1}",fg="#ed1c24")
+        report1.config(text=f"{name},\n you have a heart disease")
+
 
 ####################################################################################################################################
 def Info():
@@ -336,10 +393,10 @@ report_background=Label(image=square_report_image,bg=backgounds)
 report_background.place(x=1050,y=340)
 
 report=Label(root,font="arial 25 bold",bg="white",fg="#8dc63f")
-report.place(x=1170,y=550)
+report.place(x=1080,y=550)
 
 report1=Label(root,font="arial 10 bold",bg="white")
-report1.place(x=1130,y=610)
+report1.place(x=1070,y=610)
 ####################################################################################################################################
 
 
@@ -360,7 +417,7 @@ Button(root,image=info_button,bd=0,bg=backgounds,cursor="hand2",command=Info).pl
 
 ###Save Button###
 save_button=PhotoImage(file="Images/save.png")
-Button(root,image=save_button,bd=0,bg=backgounds,cursor="hand2").place(x=1000,y=250)
+Button(root,image=save_button,bd=0,bg=backgounds,cursor="hand2").place(x=1000,y=220)
 
 ###Smoking And Non Smoking Button###
 
