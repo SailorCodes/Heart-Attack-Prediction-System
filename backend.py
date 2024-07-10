@@ -64,10 +64,8 @@ test_data_accuracy = accuracy_score(X_test_prediction, Y_test)
 input_data = (63,1,3,145,233,1,0,150,0,2.3,0,0,1)
 
 
-# #change the input data to a numpy array
-input_data_as_numpy_array= np.asarray(input_data) #@pabact 
+input_data_as_numpy_array= np.asarray(input_data) 
 
-# # reshape the numpy array as we are predicting for only on instance YouTube Content Creator
 input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
 
 prediction = model.predict(input_data_reshaped)
@@ -77,20 +75,4 @@ if (prediction[0]== 0):
     print('The Person does not have a Heart Disease')
 else:
     print('The Person has Heart Disease')
-
-
-
-
-##YouTube Content Creator 
-##~Parvat Computer Technology 
-##
-##
-##
-##Social media:
-##Email id: parvatcomputertechnology@gmail.com 
-##Chat support: https://www.instagram.com/pct_parvatcomputertechnology/
-##
-##
-##
-##© 2023 ParvatComputerTechnology  Delhi India, Inc. All rights reserved
 
