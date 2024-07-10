@@ -17,6 +17,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from backend import *
+from MySQL import *
 
 backgounds="#f0ddd5"
 framebg="#62a7ff"
@@ -30,6 +31,9 @@ root.config(bg=backgounds)
 
 ###Analysis
 def analysis():
+
+    global prediction
+
     name=Name.get()
     D1=Date.get()
     today=datetime.date.today()
@@ -202,10 +206,83 @@ def clear():
     thalach.set('')
     oldpeak.set('')
 
+###Save
+def Save():
+    B2 = Name.get()
+    C2 = Date.get()
+    D2 = Dob.get()
 
+    today = datetime.date.today()
+    E2 = today.year-Dob.get()
+    
+    try:
+        F2 = selection()
+    except:
+        messagebox.showerror("Mission Data","Plase select Gender!")
+    
+    try:
+        J2 = selection2()
+    except:
+        messagebox.showerror("Mission Data","Plase select Fbs!")
+    
+    try:
+        M2 = selection3()
+    except:
+        messagebox.showerror("Mission Data","Plase select Exang!")
+    
+    try:
+        G2 = selection4()
+    except:
+        messagebox.showerror("Mission Data","Plase select Cp!")
+    
+    try:
+        K2 = restecg_combobox.get()
+    except:
+        messagebox.showerror("Mission Data","Plase select restcg!")
+    
+    try:
+        O2 = selection5()
+    except:
+        messagebox.showerror("Mission Data","Plase select Slope!")
+    
+    try:
+        P2 = ca_combobox.get()
+    except:
+        messagebox.showerror("Mission Data","Plase select Ca!")
+    
+    try:
+        Q2 = thal_combobox.get()
+    except:
+        messagebox.showerror("Mission Data","Plase select Thal!")
+    
+    H2 = trestbps.get()
+    I2 = chol.get()
+    L2 = thalach.get()
+    N2 = float(oldpeak.get())
 
+    print(B2)
+    print(C2)
+    print(D2)
+    print(E2)
+    print(F2)
+    print(G2)
+    print(H2)
+    print(I2)
+    print(J2)
+    print(K2)
+    print(L2)
+    print(M2)
+    print(N2)
+    print(O2)
+    print(P2)
+    print(Q2)
 
+    Save_Data_MySql(B2,C2,int(D2),int(E2),int(F2),int(G2),int(H2),int(I2),int(J2),int(K2),int(L2),int(M2),float(N2),int(O2),int(P2),int(Q2),int(prediction[0]))
 
+    clear()
+
+    root.destroy()
+    os.system("main.py")
 ####################################################################################################################################
 #icon 1
 image_icon=PhotoImage(file="Images/icon.png")
@@ -417,7 +494,7 @@ Button(root,image=info_button,bd=0,bg=backgounds,cursor="hand2",command=Info).pl
 
 ###Save Button###
 save_button=PhotoImage(file="Images/save.png")
-Button(root,image=save_button,bd=0,bg=backgounds,cursor="hand2").place(x=1000,y=220)
+Button(root,image=save_button,bd=0,bg=backgounds,cursor="hand2",command=Save).place(x=1000,y=220)
 
 ###Smoking And Non Smoking Button###
 
